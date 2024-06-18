@@ -1,0 +1,115 @@
+//logiin-signin----here--/////
+.login{
+    height: 100vh;
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #fff;
+    .left-container{
+        width: auto;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+           height: 25rem;
+           width: 35rem;
+        }
+    }
+    .right-container{
+        width: 20%;
+        height: 100%;
+        display: flex;
+        justify-content:center;
+        flex-direction: column;
+        gap: 1rem;
+        h1{
+            text-align: left;
+        }
+        p{
+            font-size: 0.8rem;
+            max-width: 16rem;
+        }
+        div{
+            max-width: 16rem;
+        }
+        .inputbox{
+            display: grid;
+            gap: 0.3rem;
+            input{
+                height: 1.7rem;
+                width: 16rem;
+                border: 1px solid #000;
+                padding-left: 0.3rem;
+            }
+        }
+        .button-login{
+            margin-top: 1rem;
+            button{
+                height: 1.7rem;
+                width: 16rem;
+                border: 1px solid #000;
+                padding-left: 0.3rem;
+                font-size: 1rem;
+            }
+        }
+        .or{
+            text-align: center;
+        }
+        .p{
+            p{
+                font-size: 0.9rem;
+            }
+        }
+    }
+}
+@media (max-width:1000px) {
+    .login{
+        .left-container{
+            display: none;
+        }
+        .right-container{
+            width: 100%;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+//signup---------starts-here--------------//
+.signup{
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    background-color: #fff;
+    .inputbox{
+        display: grid;
+        gap: 0.2rem;
+        max-width: 20rem;
+        input{
+            height: 1.7rem;
+            width: 18rem;
+            border: 1px solid #000;
+            padding-left: 0.3rem;
+            font-size: 1rem;
+        }
+    }
+    .button-signup{
+        margin-top: 0.5rem;
+        button{
+            height: 1.7rem;
+            width: 18rem;
+            border: 1px solid #000;
+            padding-left: 0.3rem;
+            font-size: 1rem;
+        }
+    }
+    .p{
+        max-width: 18rem;
+    }
+}

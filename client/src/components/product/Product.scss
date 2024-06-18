@@ -1,0 +1,95 @@
+.product{
+    height: 100vh;
+    width: 100%;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    margin-top: 5rem;
+    place-items: center;
+    .product-detail{
+        text-decoration: none;
+        color: #000;
+    }
+    .product-item{
+        div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 13rem;
+            width: 11rem;
+            background-color: #ddd;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            padding: 1rem;
+            img{
+                height: 13rem;
+                width: 11rem;
+                object-fit: cover;
+            }
+            p{
+                text-align: center;
+            }
+        }
+    }
+}
+.product-detail{
+    height: 100vh;
+    width: 100%;
+    background-color: #fff;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    .left-container{
+        height: 25rem;
+        width: 22rem;
+        img{
+            height: 25rem;
+            width: 22rem;
+            object-fit: cover;
+        }
+    }
+    .right-container{
+        height: 25rem;
+        max-width: 30rem;
+        display:flex;
+        flex-direction:column;
+        justify-content: center;
+        .product-title{
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight:900;
+        }
+        .product-description{
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .product-price{
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .quantity-cart{
+            display: flex;
+            gap:13rem;
+            .quantity{
+                display: flex;
+                gap: 1rem;
+                button{
+                    background-color: transparent;
+                    border: none;
+                    font-size: 1.1rem;
+                }
+            }
+            .btn-add-to-cart{
+                button{
+                    background-color:  #6722b5;
+                    height: 1.5rem;
+                    width: 10rem;
+                    color: #fff;
+                    border: none;
+                }
+            }
+        }
+    }
+}
