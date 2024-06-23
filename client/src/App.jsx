@@ -9,9 +9,10 @@ import { Dashboard } from './components/admin/Dashboard';
 import { Home } from './components/home/Home';
 import { Cart } from './components/navbar/Cart';
 import { About } from './components/home/About';
+import ProtectedRoute from './components/navbar/ProtectedRoute';
 
 function App() {
-
+  const isAdmin = window.localStorage.getItem("isAdmin") === "true";
   return (
     <>
       <div className='app'>
@@ -24,7 +25,14 @@ function App() {
               <Route path='/signup' element={<Signup />} />
               <Route path='/product' element={<Product />} />
               <Route path='/product/:productId' element={<Productdetail />} />
-              <Route path='/admin-dashboard' element={<Dashboard />} />
+              <Route
+                path="/admin-dashboard"
+                element={
+                  <ProtectedRoute isAllowed={isAdmin} redirectPath="/">
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
               <Route path='/about' element={<About />} />
               <Route path='/cart' element={<Cart />} />
             </Routes>
