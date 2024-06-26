@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Product.scss';
 import { GetProduct } from '../function/Product';
 
@@ -7,6 +7,7 @@ export const Productdetail = () => {
   const { productId } = useParams();
   const [productDetail, setProductDetail] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -26,6 +27,11 @@ export const Productdetail = () => {
   };
 
   const handleAddToCart = () => {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (!userInfo) {
+      navigate('/login');
+      return;
+    }
     const cartItem = { ...productDetail, quantity };
     const existingCartItems = JSON.parse(localStorage.getItem('cart')) || [];
     localStorage.setItem('cart', JSON.stringify([...existingCartItems, cartItem]));

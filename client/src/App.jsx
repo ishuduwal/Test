@@ -25,13 +25,11 @@ function App() {
               <Route path='/signup' element={<Signup />} />
               <Route path='/product' element={<Product />} />
               <Route path='/product/:productId' element={<Productdetail />} />
-              <Route
-                path="/admin-dashboard"
-                element={
-                  <ProtectedRoute isAllowed={isAdmin} redirectPath="/">
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
+              <Route path="/admin-dashboard" element={
+                <ProtectedRoute isAllowed={isAdmin} redirectPath="/">
+                  <Dashboard />
+                </ProtectedRoute>
+              }
               />
               <Route path='/about' element={<About />} />
               <Route path='/cart' element={<Cart />} />

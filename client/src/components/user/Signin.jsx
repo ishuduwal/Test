@@ -10,6 +10,8 @@ export const Signin = () => {
     password: ''
   });
 
+  const [error, setError] = useState('');
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -38,12 +40,15 @@ export const Signin = () => {
           password: ''
         });
 
+        setError('');
+
         navigate('/');
         window.location.reload();
       } else {
-        console.log('Invalid email or password');
+        setError('Invalid email or password');
       }
     } catch (error) {
+      setError('Invalid email or password');
       console.log('Login failed:', error);
     }
   };
@@ -64,6 +69,7 @@ export const Signin = () => {
           <label>Password</label>
           <input type='password' name='password' value={user.password} onChange={handleChange} required />
         </div>
+        {error && <div className='error'>{error}</div>}
         <div className='button-login'>
           <button onClick={LoginHandler}>Login</button>
         </div>
