@@ -16,7 +16,8 @@
     span {
         font-size: 1.1rem;
         font-weight: bold;
-        .home-link{
+
+        .home-link {
             color: #fff;
             text-decoration: none;
         }
@@ -40,7 +41,8 @@
 
             li {
                 list-style-type: none;
-                .nav-links{
+
+                .nav-links {
                     color: #fff;
                     text-decoration: none;
                 }
@@ -51,22 +53,27 @@
     .search-profile {
         display: flex;
         gap: 2rem;
-        .profile{
-            .link{
-                .fa-solid, .username-highlight{
+
+        .profile {
+            .link {
+
+                .fa-solid,
+                .username-highlight {
                     color: #fff;
                 }
             }
         }
     }
 
-@media (max-width: 760px) {
+    @media (max-width: 760px) {
         .right-container {
             flex-direction: column;
             margin-right: 3rem;
-            .menu{
+
+            .menu {
                 display: none;
             }
+
             .menu-toggle,
             .close-button {
                 display: block;
@@ -91,11 +98,12 @@
         }
     }
 }
-.sidebar{
+
+.sidebar {
     height: 100vh;
     background-color: #6d38aa;
     width: 10rem;
-    position:fixed;
+    position: fixed;
     right: 0;
     top: 4rem;
     z-index: 100;
@@ -103,8 +111,9 @@
     flex-direction: column;
     align-items: center;
     padding-top: 3rem;
-    div{
-        button{
+
+    div {
+        button {
             margin: 1rem;
             width: 7rem;
             height: 1.5rem;
@@ -112,58 +121,83 @@
         }
     }
 }
-.cart{
+
+.cart {
     height: 100vh;
     width: 100%;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     background-color: #f1f5f9;
-    div{
+
+    div {
         background-color: #fff;
         box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
         padding: 1rem;
-        div{
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            padding-left: 2rem;
+        }
+
+        .user-information {
+            font-size: 1.1rem;
+            padding-left: 2rem;
+        }
+
+        div {
             display: flex;
-            img{
+
+            img {
                 height: 6rem;
                 width: 5rem;
                 object-fit: cover;
             }
         }
-        .cart-info{
+
+        .cart-info {
             display: flex;
-            flex-direction:column;
-            .info-title{
+            flex-direction: column;
+
+            .info-title {
                 font-size: 1.2rem;
                 font-weight: bold;
                 margin-bottom: 1rem;
             }
         }
-        .remove-button{
-            button{
+
+        .remove-button {
+            button {
                 height: 1.5rem;
-                width:7rem;
+                width: 7rem;
                 font-size: 1rem;
             }
         }
-        .bottom-cart{
-            display:flex;
+
+        .bottom-cart {
+            display: flex;
             justify-content: space-between;
             gap: 2rem;
-            button{
+
+            p {
+                padding-left: 1rem;
+            }
+
+            button {
                 height: 1.5rem;
                 width: 5rem;
                 background-color: #6d38aa;
                 color: #fff;
-                border:none;
+                border: none;
             }
-            button:hover{
+
+            button:hover {
                 background-color: #fff;
                 color: #6d38aa;
-                border :1px solid #000;
-                transition: 0.5s; 
-           }
+                border: 1px solid #000;
+                transition: 0.5s;
+            }
         }
     }
 }

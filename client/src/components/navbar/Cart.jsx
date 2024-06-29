@@ -1,8 +1,11 @@
 import React from 'react';
-import { AddToCart } from '../function/Cart'; // Adjust the import path as needed
+import { AddToCart } from '../function/Cart';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 export const Cart = () => {
   const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+  const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
   const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   const handleRemoveItem = (index) => {
@@ -14,7 +17,6 @@ export const Cart = () => {
 
   const handleProceed = async () => {
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
     if (!userInfo || !userInfo.email || !userInfo.username) {
       alert('User not logged in. Please log in to proceed.');
@@ -38,20 +40,54 @@ export const Cart = () => {
 
     try {
       await AddToCart(cartData);
-      localStorage.removeItem('cart');
-      window.location.reload();
-      alert('Cart successfully added to the database!');
+      generatePDFBill();  // Generate the PDF bill
     } catch (error) {
       console.error('Error adding cart to the database:', error);
       alert('Failed to add cart to the database.');
     }
   };
 
+  const generatePDFBill = () => {
+    const input = document.getElementById('bill');
+    const removeButtons = document.querySelectorAll('.remove-button');
+    const proceedButton = document.querySelector('.proceed-button');
+
+    // Hide remove buttons and proceed button before capturing the bill
+    removeButtons.forEach(button => {
+      button.style.display = 'none';
+    });
+    proceedButton.style.display = 'none';
+
+    html2canvas(input)
+      .then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, 'PNG', 0, 0);
+        pdf.save('bill.pdf');
+        alert('Cart successfully added to the database and bill generated!');
+        localStorage.removeItem('cart'); // Clear the cart
+      })
+      .catch(error => {
+        console.error('Error generating PDF:', error);
+      })
+      .finally(() => {
+        // Restore remove buttons and proceed button visibility after capturing the bill
+        removeButtons.forEach(button => {
+          button.style.display = 'block';
+        });
+        proceedButton.style.display = 'block';
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      });
+  };
 
   return (
     <div className='cart'>
-      <div>
-        <p>Shopping Cart</p>
+      <div id='bill'>
+        <h3>Shopping Cart</h3>
+        <p className='user-information'>User: {userInfo.username}</p>
+        <p className='user-information'>Email: {userInfo.email}</p>
         {cartItems.map((item, index) => (
           <div key={item._id}>
             <div>
@@ -68,7 +104,7 @@ export const Cart = () => {
         ))}
         <div className='bottom-cart'>
           <p>Total Price: Rs.{totalPrice}</p>
-          <button onClick={handleProceed}>Proceed</button>
+          <button className='proceed-button' onClick={handleProceed}>Proceed</button>
         </div>
       </div>
     </div>
