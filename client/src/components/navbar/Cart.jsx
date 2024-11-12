@@ -1,12 +1,13 @@
 import React from 'react';
-import { AddToCart } from '../function/Cart';
+import axios from 'axios';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import * as api from '../api/Payment';
 
 export const Cart = () => {
   const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
   const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
-  const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0) * 100; // Convert to cents
 
   const handleRemoveItem = (index) => {
     const updatedCart = [...cartItems];
@@ -16,34 +17,39 @@ export const Cart = () => {
   };
 
   const handleProceed = async () => {
-    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-
     if (!userInfo || !userInfo.email || !userInfo.username) {
       alert('User not logged in. Please log in to proceed.');
       return;
     }
 
     const itemsWithProductId = cartItems.map(item => ({
-      productId: item._id, // Assuming item._id is the productId
+      productId: item._id,
       quantity: item.quantity,
       title: item.title,
       description: item.description,
       price: item.price,
-      image: item.image
+      image: item.image,
     }));
 
     const cartData = {
       email: userInfo.email,
       username: userInfo.username,
-      items: itemsWithProductId
+      items: itemsWithProductId,
     };
 
     try {
-      await AddToCart(cartData);
-      generatePDFBill();  // Generate the PDF bill
+
+      await api.AddPayment(cartData);
+
+      const response = await axios.post('http://localhost:5000/payment/verify', {
+        email: userInfo.email,
+        items: itemsWithProductId,
+      });
+
+      window.location.href = response.data.url;
     } catch (error) {
-      console.error('Error adding cart to the database:', error);
-      alert('Failed to add cart to the database.');
+      console.error('Error during payment:', error);
+      alert('Failed to proceed with the payment.');
     }
   };
 
@@ -64,14 +70,13 @@ export const Cart = () => {
         const pdf = new jsPDF();
         pdf.addImage(imgData, 'PNG', 0, 0);
         pdf.save('bill.pdf');
-        alert('Cart successfully added to the database and bill generated!');
-        localStorage.removeItem('cart'); // Clear the cart
+        alert('Bill generated!');
       })
       .catch(error => {
         console.error('Error generating PDF:', error);
       })
       .finally(() => {
-        // Restore remove buttons and proceed button visibility after capturing the bill
+        // Restore buttons after capturing the bill
         removeButtons.forEach(button => {
           button.style.display = 'block';
         });
@@ -103,7 +108,7 @@ export const Cart = () => {
           </div>
         ))}
         <div className='bottom-cart'>
-          <p>Total Price: Rs.{totalPrice}</p>
+          <p>Total Price: Rs.{totalPrice / 100}</p>
           <button className='proceed-button' onClick={handleProceed}>Proceed</button>
         </div>
       </div>

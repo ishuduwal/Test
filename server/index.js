@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import UserRouter from './router/User.js'
 import ProductRouter from './router/Product.js'
 import CartRouter from './router/Cart.js'
+import PaymentRouter from './router/Payment.js'
 
 const app = express();
 dotenv.config();
@@ -15,6 +16,7 @@ app.use('/user', UserRouter);
 app.use('/product', ProductRouter);
 app.use('/cart', CartRouter);
 app.use('/assets', express.static('public/assets'));
+app.use('/payment', PaymentRouter);
 
 const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.mongodb).then(() =>
